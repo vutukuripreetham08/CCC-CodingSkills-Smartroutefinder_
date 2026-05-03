@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Route Finder (India Edition)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-route"></i>
+                <h1>Smart Route Finder</h1>
+            </div>
+            <p class="subtitle">Advanced graph-based navigation across 102 Indian cities</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Left Panel: Controls -->
+            <div class="glass-panel controls-panel">
+                <h2><i class="fa-solid fa-sliders"></i> Navigation Controls</h2>
+                
+                <div class="input-group">
+                    <label for="source"><i class="fa-solid fa-location-dot text-primary"></i> Source City</label>
+                    <select id="source" class="glass-input"></select>
+                </div>
+
+                <div class="input-group swap-wrapper">
+                    <button id="swap-btn" class="icon-btn" title="Swap Source and Destination">
+                        <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+                    </button>
+                </div>
+
+                <div class="input-group">
+                    <label for="destination"><i class="fa-solid fa-location-crosshairs text-accent"></i> Destination City</label>
+                    <select id="destination" class="glass-input"></select>
+                </div>
+
+                <div class="input-group">
+                    <label for="algorithm"><i class="fa-solid fa-microchip text-warning"></i> Algorithm</label>
+                    <select id="algorithm" class="glass-input">
+                        <option value="dijkstra">Dijkstra (Shortest Distance)</option>
+                        <option value="astar">A* (Fastest Time)</option>
+                        <option value="greedy">Greedy (Quickest Local Decision)</option>
+                        <option value="bfs">BFS (Fewest Hops)</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button id="find-route-btn" class="btn btn-primary">
+                        <i class="fa-solid fa-map-location-dot"></i> Find Route
+                    </button>
+                    <button id="randomize-traffic-btn" class="btn btn-secondary">
+                        <i class="fa-solid fa-shuffle"></i> Randomize Traffic
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Results -->
+            <div class="glass-panel results-panel">
+                <h2><i class="fa-solid fa-chart-simple"></i> Route Analysis</h2>
+                
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Computing optimal route...</p>
+                </div>
+
+                <div id="no-result" class="empty-state">
+                    <div class="icon-bg"><i class="fa-solid fa-map"></i></div>
+                    <h3>Ready to Navigate</h3>
+                    <p>Select your cities and algorithm, then click "Find Route" to see the magic happen.</p>
+                </div>
+
+                <div id="route-result" class="hidden">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-value" id="res-distance">0</span>
+                                <span class="stat-unit">km</span>
+                                <span class="stat-label">Total Distance</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-value" id="res-time">0</span>
+                                <span class="stat-unit">min</span>
+                                <span class="stat-label">Est. Time</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="path-container">
+                        <h3><i class="fa-solid fa-arrow-trend-up"></i> Path Traversal</h3>
+                        <div class="path-timeline" id="path-timeline">
+                            <!-- Timeline items injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
